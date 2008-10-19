@@ -2,8 +2,8 @@
 
 Summary: 	A clone of the game Rick Dangerous
 Name: 		xrick
-Version: 	0.0
-Release: 	0.7.%{tarversion}%{?dist}
+Version: 	0.0.%{tarversion}
+Release: 	3%{?dist}
 License: 	Distributable
 Group: 		Amusements/Games
 URL:		http://www.bigorno.net/xrick/
@@ -106,6 +106,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Sun Oct 19 2008 Hans de Goede <j.w.r.degoede@hhs.nl> 0.0.021212-3
+- Change EVR to 0:0.0.021212-3 for freshrpms upgrade path
+
 * Mon Aug 04 2008 Thorsten Leemhuis <fedora [AT] leemhuis [DOT] info - 0.0-0.7.021212
 - rebuild
 
