@@ -3,7 +3,7 @@
 Summary: 	A clone of the game Rick Dangerous
 Name: 		xrick
 Version: 	0.0.%{tarversion}
-Release: 	5%{?dist}
+Release: 	6%{?dist}
 License: 	Distributable
 Group: 		Amusements/Games
 URL:		http://www.bigorno.net/xrick/
@@ -106,6 +106,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Mar 12 2013 Nicolas Chauvet <kwizart@gmail.com> - 0.0.021212-6
+- https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
+
 * Thu Feb 09 2012 Nicolas Chauvet <kwizart@gmail.com> - 0.0.021212-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
 
