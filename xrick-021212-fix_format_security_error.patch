@@ -1,0 +1,12 @@
+diff -aur xrick-021212.orig/src/system.c xrick-021212/src/system.c
+--- xrick-021212.orig/src/system.c	2002-12-24 14:33:43.000000000 +0100
++++ xrick-021212/src/system.c	2017-03-26 22:02:15.769150251 +0200
+@@ -64,7 +64,7 @@
+   va_start(argptr, msg);
+   vsprintf(s, msg, argptr);
+   va_end(argptr);
+-  printf(s);
++  printf("%s", s);
+ }
+ 
+ /*

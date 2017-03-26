@@ -1,19 +1,21 @@
-%define		tarversion	021212
+%define        tarversion    021212
 
-Summary: 	A clone of the game Rick Dangerous
-Name: 		xrick
-Version: 	0.0.%{tarversion}
-Release: 	8%{?dist}
-License: 	Distributable
-Group: 		Amusements/Games
-URL:		http://www.bigorno.net/xrick/
-Source0: 	http://www.bigorno.net/xrick/%{name}-%{tarversion}.tgz
-Patch1:		xrick-rpmoptflags-makefile.patch
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires:	SDL-devel zlib-devel desktop-file-utils ImageMagick
-Requires:	hicolor-icon-theme
+Summary:       A clone of the game Rick Dangerous
+Name:          xrick
+Version:       0.0.%{tarversion}
+Release:       9%{?dist}
+License:       Distributable
+Group:         Amusements/Games
+URL:           http://www.bigorno.net/xrick/
+Source0:       http://www.bigorno.net/xrick/%{name}-%{tarversion}.tgz
+Patch1:        xrick-rpmoptflags-makefile.patch
+Patch2:        xrick-021212-fix_format_security_error.patch
+BuildRequires: SDL-devel
+BuildRequires: zlib-devel
+BuildRequires: desktop-file-utils
+BuildRequires: ImageMagick
+Requires:      hicolor-icon-theme
 
-#---------------------------------------------------------------------
 
 %description
 xrick is a clone of Rick Dangerous. Written entirely in C, it relies
@@ -24,27 +26,26 @@ running away from rolling rocks and avoiding traps in places from
 South America to a futuristic missile base via Egypt and the
 Schwarzendumpf castle.
 
-#---------------------------------------------------------------------
 
 %prep
 %setup -q -n %{name}-%{tarversion}
 %patch1 -p1
+%patch2 -p1
 sed -i 's:data.zip:%{_datadir}/%{name}/data.zip:g' src/xrick.c
 # make xrick manpage UTF8
 gunzip xrick.6.gz
 iconv -f ISO-8859-1 -t UTF8 xrick.6 > xrick.6.tmp
+touch -r xrick.6 xrick.6.tmp
 mv xrick.6.tmp xrick.6
-
-#---------------------------------------------------------------------
-
-%build
-make %{?_smp_mflags}
+# convert xrick icon to png format
 convert src/xrickST.ico xrickST.png
 
-#---------------------------------------------------------------------
+
+%build
+%make_build
+
 
 %install
-rm -rf $RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT/%{_bindir}
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{name}
 mkdir -p $RPM_BUILD_ROOT/%{_mandir}/man6
@@ -66,19 +67,13 @@ EOF
 
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/applications
 desktop-file-install --vendor rpmfusion \
-  --dir $RPM_BUILD_ROOT/%{_datadir}/applications    \
+  --dir $RPM_BUILD_ROOT/%{_datadir}/applications \
   %{name}.desktop
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps
 install -p -m 644 xrickST.png \
   $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps
 
-#---------------------------------------------------------------------
-
-%clean
-rm -rf $RPM_BUILD_ROOT
-
-#---------------------------------------------------------------------
 
 %post
 touch --no-create %{_datadir}/icons/hicolor || :
@@ -92,10 +87,8 @@ if [ -x %{_bindir}/gtk-update-icon-cache ]; then
    %{_bindir}/gtk-update-icon-cache --quiet %{_datadir}/icons/hicolor || :
 fi
 
-#---------------------------------------------------------------------
 
 %files
-%defattr(-,root,root,-)
 %doc README
 %{_bindir}/%{name}
 %{_datadir}/applications/*%{name}.desktop
@@ -103,9 +96,13 @@ fi
 %{_mandir}/man6/%{name}.6*
 %{_datadir}/icons/hicolor/32x32/apps/xrickST.png
 
-#---------------------------------------------------------------------
 
 %changelog
+* Sun Mar 26 2017 Xavier Bachelot <xavier@bachelot.org> - 0.0.021212-9
+- Fix format-security error.
+- Preserve man page timestamp.
+- Cleanup spec file.
+
 * Sun Mar 26 2017 RPM Fusion Release Engineering <kwizart@rpmfusion.org> - 0.0.021212-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 
@@ -133,8 +130,7 @@ fi
 - make the manpage UTF-8
 - start fullscreen
 
-* Sat Mar 25 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de>
-0.0-0.5.021212
+* Sat Mar 25 2006 Andreas Bierfert <andreas.bierfert[AT]lowlatency.de> - 0.0-0.5.021212
 - fix release
 - remove epoch
 
@@ -165,5 +161,5 @@ fi
 - buildroot -> RPM_BUILD_ROOT
 - Modified Source0
 
-* Wed Apr 23 2003 Dams <anvil[AT]livna.org> 
+* Wed Apr 23 2003 Dams <anvil[AT]livna.org>
 - Initial build.
