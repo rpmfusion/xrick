@@ -3,13 +3,13 @@
 Summary:       A clone of the game Rick Dangerous
 Name:          xrick
 Version:       0.0.%{tarversion}
-Release:       11%{?dist}
+Release:       12%{?dist}
 License:       Distributable
-Group:         Amusements/Games
 URL:           http://www.bigorno.net/xrick/
 Source0:       http://www.bigorno.net/xrick/%{name}-%{tarversion}.tgz
 Patch1:        xrick-rpmoptflags-makefile.patch
 Patch2:        xrick-021212-fix_format_security_error.patch
+BuildRequires: gcc
 BuildRequires: SDL-devel
 BuildRequires: zlib-devel
 BuildRequires: desktop-file-utils
@@ -98,6 +98,10 @@ fi
 
 
 %changelog
+* Fri Jul 20 2018 Xavier Bachelot <xavier@bachelot.org> - 0.0.021212-12
+- Add BR: gcc.
+- Remove Group:.
+
 * Fri Mar 02 2018 RPM Fusion Release Engineering <leigh123linux@googlemail.com> - 0.0.021212-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
 
