@@ -1,3 +1,4 @@
+%define _legacy_common_support 1
 %define        tarversion    021212
 
 Summary:       A clone of the game Rick Dangerous
