@@ -4,7 +4,7 @@
 Summary:       A clone of the game Rick Dangerous
 Name:          xrick
 Version:       0.0.%{tarversion}
-Release:       24%{?dist}
+Release:       25%{?dist}
 License:       Distributable
 URL:           http://www.bigorno.net/xrick/
 Source0:       http://www.bigorno.net/xrick/%{name}-%{tarversion}.tgz
@@ -99,6 +99,9 @@ fi
 
 
 %changelog
+* Sat Aug 03 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.0.021212-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_41_Mass_Rebuild
+
 * Sun Feb 04 2024 RPM Fusion Release Engineering <sergiomb@rpmfusion.org> - 0.0.021212-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_40_Mass_Rebuild
 
