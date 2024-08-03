@@ -30,8 +30,8 @@ Schwarzendumpf castle.
 
 %prep
 %setup -q -n %{name}-%{tarversion}
-%patch1 -p1
-%patch2 -p1
+%patch -P1 -p1
+%patch -P2 -p1
 sed -i 's:data.zip:%{_datadir}/%{name}/data.zip:g' src/xrick.c
 # make xrick manpage UTF8
 gunzip xrick.6.gz
